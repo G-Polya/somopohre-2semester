@@ -1,0 +1,16 @@
+int compute_h(STATE* s)
+{
+
+
+	// h = number of tiles out of place
+	int h = 0;
+
+	for (int i = 0; i < 4; i++)
+	{
+		if (s->board[i] && s->board[i] != goal->board[i])
+		h++;
+	}
+
+
+	return (h);
+}

@@ -1,0 +1,6 @@
+int compute_h(STATE* s)
+{
+
+	h = 1
+	return h;
+}

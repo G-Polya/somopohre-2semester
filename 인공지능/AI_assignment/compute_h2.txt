@@ -1,0 +1,14 @@
+int compute_h(STATE* s)
+{
+
+	// h = sum of distance out of place
+	int h = 0;
+
+	for (int i = 0; i < SIZE; i++)
+	{
+		
+		h += abs(s->board[i]/ 3 - goal->board[i]/ 3) + abs(s->board[i] % 3 - goal->board[i] % 3);
+	}
+
+	return h;
+}

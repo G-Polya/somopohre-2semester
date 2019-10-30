@@ -1,0 +1,7 @@
+C:\Users\wlska\source\repos\문제5\문제5\bin\Debug\문제5.exe.config
+C:\Users\wlska\source\repos\문제5\문제5\bin\Debug\문제5.exe
+C:\Users\wlska\source\repos\문제5\문제5\bin\Debug\문제5.pdb
+C:\Users\wlska\source\repos\문제5\문제5\obj\Debug\문제5.csprojAssemblyReference.cache
+C:\Users\wlska\source\repos\문제5\문제5\obj\Debug\문제5.csproj.CoreCompileInputs.cache
+C:\Users\wlska\source\repos\문제5\문제5\obj\Debug\문제5.exe
+C:\Users\wlska\source\repos\문제5\문제5\obj\Debug\문제5.pdb
