@@ -55,6 +55,9 @@ int main()
 		}
 		std::cout << "\n";
 	}
+	cout << "Input 1 if station is sending bit 1" << endl;
+	cout << "Input -1 if station is sending bit 0" << endl;
+	cout << "Input 0 if station is idle" << endl << endl;
 
 	// Read transmit bit
 	// transmitt 1 == -1 means negation  
@@ -124,7 +127,7 @@ int main()
 	{
 		for (int j = 0; j < chip_length; j++)
 		{
-			receiver[i] += signal[i][j] * joiner[j];
+			receiver[i] += input_chip[i][j] * joiner[j];
 		}
 		receiver[i] /= chip_length;
 	}
