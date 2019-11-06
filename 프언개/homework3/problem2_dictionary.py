@@ -78,6 +78,9 @@ class Bank:
         print("Welcome DGU BANK!!\n")
         print("Loading Account!!!")
         print("Done!\n")
+        print("------------------Account in the Bank--------------")
+        self.show("temp.pickle")
+
         input_pin = input("Enter account pin : ")
         if input_pin == "admin":
             while(True):
@@ -105,8 +108,6 @@ class Bank:
                 elif selection == 4:
                     print("\nSaving Account")
                     self.save("temp.pickle")
-                    print()
-                    self.show("temp.pickle")
                     print("Done\n")
                     print("Bye!!")
                     break
@@ -127,18 +128,18 @@ class Bank:
                 elif selection == 4:
                     print("\n\nSaving Account")
                     self.save("temp.pickle")
-                    print()
-                    self.show("temp.pickle")
                     print("Done\n")
                     print("Bye DGU Bank!")
                     break
 
 
 bank = Bank()
+
+
 bank.add(Account("Wilma","1001",4000.00))
 bank.add(Account("Fred","1002",1000.00))
 bank.print()
 
 
-
 bank.ATM()
+
