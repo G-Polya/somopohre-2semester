@@ -14,20 +14,15 @@ int search_operand(table _table[], int size);
 
 int main(int argc, char* argv[])
 {
-
-	if (argc == 2)
+	
+	if(argc == 3)
 	{
-		FILE* fp_input, * fp_output;
+		FILE* fp_input = fopen(argv[1],"r");
 		table list[100];
 		int i = 0, j = 0, k = 0, order;
 		char c;
 
-		if ((fp_input = fopen(argv[1], "r")) == NULL)
-		{
-			printf("파일 불러오기 오류\n");
-			return 0;
-		}
-		while (1)
+		while (!feof(fp_input))
 		{
 			c = fgetc(fp_input);
 			if (c == '\n')
@@ -64,33 +59,36 @@ int main(int argc, char* argv[])
 			}
 		}
 
+		FILE* fp_output = fopen(argv[2],"w");
 	
-		if ((fp_output = fopen(argv[2], "w")) == NULL)
+		if(!feof(fp_output))
 		{
-			printf("파일 불러오기 오류\n");
-			return 0;
-		}
-		fprintf(fp_output, "======label======\n");
+			fprintf(fp_output, "======label======\n");
 
-		for (order = 0; order < i; order++)
-		{
-			fprintf(fp_output, "%s\n", list[order].label);
-		}
-		fprintf(fp_output, "======opcode======\n");
-		for (order = 0; order < j; order++)
-		{
-			fprintf(fp_output, "%s\n", list[order].opcode);
-		}
-		fprintf(fp_output, "======operand======\n");
-		for (order = 0; order < k; order++)
-		{
-			fprintf(fp_output, "%s\n", list[order].operand);
+			for (order = 0; order < i; order++)
+			{
+				fprintf(fp_output, "%s\n", list[order].label);
+			}
+			fprintf(fp_output, "======opcode======\n");
+			for (order = 0; order < j; order++)
+			{
+				fprintf(fp_output, "%s\n", list[order].opcode);
+			}
+			fprintf(fp_output, "======operand======\n");
+			for (order = 0; order < k; order++)
+			{
+				fprintf(fp_output, "%s\n", list[order].operand);
+			}
 		}
 		fclose(fp_input);
 		fclose(fp_output);
 	}
 	else
-		printf("Segmentation Fault\n");
+	{
+		printf("Segmentation fault\n");
+	}
+	
+
 	return 0;
 
 }
