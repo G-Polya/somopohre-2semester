@@ -49,9 +49,9 @@ int main(int argc, char* argv[])
 				if (!search_operand(list, k))
 					k++;
 			}
-			else
+			else  //첫글자가 공백이라면 
 			{
-				fseek(fp_input, 8, SEEK_CUR);
+				fseek(fp_input, 8, SEEK_CUR);	//파일의 읽기/쓰기 위치이동. 이제 현재 읽기/쓰기 포인터위치는 8이 된다
 				fscanf(fp_input, "%s", list[j].opcode);
 				if (!search_opcode(list, j))
 					j++;
