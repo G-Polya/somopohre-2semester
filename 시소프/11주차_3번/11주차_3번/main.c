@@ -14,17 +14,13 @@ int search_operand(table _table[], int size);
 
 int main(int argc, char* argv[])
 {
-
-	FILE* fp_input = fopen("SRCFILE", "r");
+	if (argc == 3)
+	{
+		FILE* fp_input = fopen(argv[1], "r");
 		table list[100];
 		int i = 0, j = 0, k = 0;
 		char c;
-		
-		/*if (fp_input == NULL)
-		{
-			printf("파일 불러오기 오류\n");
-			return 0;
-		}*/
+
 		while (!feof(fp_input))
 		{
 			c = fgetc(fp_input);
@@ -62,36 +58,33 @@ int main(int argc, char* argv[])
 			}
 		}
 
-		FILE* fp_output = fopen("Test.txt", w);
+		FILE* fp_output = fopen(argv[2], "w");
 		if (!feof(fp_output))
 		{
+			fprintf(fp_output, "======label======\n");
 
+			for (int order = 0; order < i; order++)
+			{
+				fprintf(fp_output, "%s\n", list[order].label);
+			}
+			fprintf(fp_output, "======opcode======\n");
+			for (int order = 0; order < j; order++)
+			{
+				fprintf(fp_output, "%s\n", list[order].opcode);
+			}
+			fprintf(fp_output, "======operand======\n");
+			for (int order = 0; order < k; order++)
+			{
+				fprintf(fp_output, "%s\n", list[order].operand);
+			}
 		}
 
-		if ((fp_output = fopen("Test.txt", "w")) == NULL)
-		{
-			printf("파일 불러오기 오류\n");
-			return 0;
-		}
-		fprintf(fp_output, "======label======\n");
 
-		for (int order = 0; order < i; order++)
-		{
-			fprintf(fp_output, "%s\n", list[order].label);
-		}
-		fprintf(fp_output, "======opcode======\n");
-		for (int order = 0; order < j; order++)
-		{
-			fprintf(fp_output, "%s\n", list[order].opcode);
-		}
-		fprintf(fp_output, "======operand======\n");
-		for (int order = 0; order < k; order++)
-		{
-			fprintf(fp_output, "%s\n", list[order].operand);
-		}
 		fclose(fp_input);
 		fclose(fp_output);
-	
+	}
+	else
+		printf("Segmentation Error\n");
 	return 0;
 
 }
