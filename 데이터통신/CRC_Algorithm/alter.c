@@ -16,7 +16,7 @@ int main(int argc, char* argv[])
     /*Read the first line of the output of the generator program, get the polynomial, and input to the verify program later.*/
     while ((c = getchar()) != '\n')
 	{
-	putchar(c);
+		putchar(c);
     }
     printf("\n");
     
