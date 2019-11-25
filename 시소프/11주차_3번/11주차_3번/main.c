@@ -14,9 +14,16 @@ int search_operand(table _table[], int size);
 
 int main(int argc, char* argv[])
 {
+<<<<<<< HEAD
 	if (argc == 3)
 	{
 		FILE* fp_input = fopen(argv[1], "r");
+=======
+	
+	if(argc == 3)
+	{
+		FILE* fp_input = fopen(argv[1],"r");
+>>>>>>> origin/master
 		table list[100];
 		int i = 0, j = 0, k = 0;
 		char c;
@@ -58,22 +65,40 @@ int main(int argc, char* argv[])
 			}
 		}
 
+<<<<<<< HEAD
 		FILE* fp_output = fopen(argv[2], "w");
 		if (!feof(fp_output))
 		{
 			fprintf(fp_output, "======label======\n");
 
 			for (int order = 0; order < i; order++)
+=======
+		FILE* fp_output = fopen(argv[2],"w");
+	
+		if(!feof(fp_output))
+		{
+			fprintf(fp_output, "======label======\n");
+
+			for (order = 0; order < i; order++)
+>>>>>>> origin/master
 			{
 				fprintf(fp_output, "%s\n", list[order].label);
 			}
 			fprintf(fp_output, "======opcode======\n");
+<<<<<<< HEAD
 			for (int order = 0; order < j; order++)
+=======
+			for (order = 0; order < j; order++)
+>>>>>>> origin/master
 			{
 				fprintf(fp_output, "%s\n", list[order].opcode);
 			}
 			fprintf(fp_output, "======operand======\n");
+<<<<<<< HEAD
 			for (int order = 0; order < k; order++)
+=======
+			for (order = 0; order < k; order++)
+>>>>>>> origin/master
 			{
 				fprintf(fp_output, "%s\n", list[order].operand);
 			}
@@ -84,7 +109,15 @@ int main(int argc, char* argv[])
 		fclose(fp_output);
 	}
 	else
+<<<<<<< HEAD
 		printf("Segmentation Error\n");
+=======
+	{
+		printf("Segmentation fault\n");
+	}
+	
+
+>>>>>>> origin/master
 	return 0;
 
 }
