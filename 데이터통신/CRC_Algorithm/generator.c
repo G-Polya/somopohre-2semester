@@ -3,10 +3,9 @@
 int main(int argc, char* argv[])
 {
     int c, m = 0, n = 0, i, j;
-    char M[100], G[50], R[100];/*represents dividend polynomial, divisor polynomial and remainder polynomial*/
+    char M[100], G[50], R[100];/*M은 dividend polynomial, G는 divisor polynomial, R은 remainder*/
 	
-    /*Read from the file the first line of ASCII text containing an m-bit message consisting of a string of 0s and 1s.*/
-    //printf("The message from the file is: ");
+    //파일에서 0과 1로 구성된 m-bit 메시지를 포함하는 아스키 텍스트의 첫번째 라인을 읽어온다
     while((c = getchar()) != '\n')
 	{
 		//putchar(c);
@@ -14,8 +13,8 @@ int main(int argc, char* argv[])
 		m++;             //the number of bits in M
     }
 
-    /*Read from the file the second line that represents n-bit polynomial, also in ASCII.*/
-    printf("\nThe polynomial is: ");
+    //n-bit polyinomial을 표현하는 두번째 파일을 파일에서 읽어온다
+	printf("\nThe polynomial is: ");
     while((c = getchar()) != '\n')
 	{
 		putchar(c);
@@ -25,20 +24,19 @@ int main(int argc, char* argv[])
     }
     printf("\n");
 
-    /*At first, makes the remainder equal to dividend.*/
-    for (i = 0; i < m + n - 1; i++)
+    //초기에는 remainder와 dividend를 동일하게 만든다
+	for (i = 0; i < m + n - 1; i++)
 	{
 		R[i] = M[i];
     }
     
-    /*You have to calculate (m-1) times to get the remainder R.*/
-    for (i = 0; i < m - 1; i++)
+    // remainder R을 구하기 위해서 (m-1)번 계산을 실시
+	for (i = 0; i < m - 1; i++)
 	{
 		if (R[i] == '1')
 		{
 			for (j = i; j < n + i; j++)
 			{
-				/*Because R[j] is a character, the action of exclusive-OR equals to that if the two characters is the same, them the result is '0', else, the result is '0'.*/
 				if (R[j] == G[j - i]) 
 					R[j] = '0';
 				else
@@ -57,8 +55,8 @@ int main(int argc, char* argv[])
 		}
     }
     
-    /*The message to be transmitted equals to the subtraction between dividend and remainder*/
-    printf("\nThe message to be transmitted is: ");
+    //전송되는 메시지는 dividend와 remainder의 차이와 같다
+	printf("\nThe message to be transmitted is: ");
     for (i = 0; i < m + n - 1; i++)
 	{
 		if (R[i] == M[i])

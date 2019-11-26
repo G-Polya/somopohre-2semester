@@ -3,36 +3,34 @@
 int main(int argc, char* argv[])
 {
     int c, m = 0, n = 0, i, j;
-    char M[100], G[50], R[100];/*represents dividend polynomial, divisor polynomial and remainder polynomial*/
+    char M[100], G[50], R[100];/*M은 dividend polynomial, G은 divisor polynomial, R은 remainder polynomial*/
     
-    /*Read the first line of the output of the generator program, that represents the polynomial*/
+    //generator program 결과에서 첫번째 라인을 읽어온다. 이 결과는 polynomial을 의미한다
     while ((c = getchar()) != '\n')
 	{
-		G[n] = c;          //store the polynomial in G
-		n++;               //the number of bits in G
+		G[n] = c;          //G에 polynomial을 저장한다
+		n++;               
     }
     
     /*Read the second line of the output of the generator program, that represents the message treansmitted.*/
-    while ((c = getchar()) != '\n')
+    //generator program 결과에서 두번째 라인을 읽어온다. 이 라인은 전송된 message를 의미한다
+	while ((c = getchar()) != '\n')
 	{
 		M[m] = c;          //store the message in M
 		m++;               //the number of bits in M
     }
     
-    /*At first, makes the remainder equal to dividend.*/
     for (i = 0; i < m; i++)
 	{
 		R[i] = M[i];
     }
 
-    /*You have to calculate (m-n+1) times to get the remainder R.*/
     for (i = 0; i < m - n + 1; i++)
 	{
 		if (R[i] == '1')
 		{
 			for (j = i; j < n + i; j++)
 			{
-				/*Because R[j] is a character, the action of exclusive-OR equals to that if the two characters is the same, them the result is '0', else, the result is '0'.*/
 				if (R[j] == G[j - i]) R[j] = '0';
 				else R[j] = '1';
 			}
@@ -47,9 +45,9 @@ int main(int argc, char* argv[])
 		}
     }
 
-    j = 0;            //*the number of '0' in remainder R
-    /*If the remainder is 0, that means j equals to m, then the message transmitted is correct.*/
-    for (i = 0; i < m; i++)
+    j = 0;            //remainder R에 있는 '0'의 개수
+
+	for (i = 0; i < m; i++)
 	{
 		if (R[i] == '0')
 		{
