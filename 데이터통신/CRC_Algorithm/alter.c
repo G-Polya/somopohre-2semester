@@ -20,7 +20,6 @@ int main(int argc, char* argv[])
     }
     printf("\n");
     
-    /*Read the second line of the output of the generator program, get the message transmitted.*/
     //generator program 결과에서 두번째 라인을 읽어온다. 즉, 전송된 메시지를 가져온다
 	while ((c = getchar()) != '\n')
 	{

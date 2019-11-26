@@ -3,14 +3,14 @@
 int main(int argc, char* argv[])
 {
     int c, m = 0, n = 0, i, j;
-    char M[100], G[50], R[100];/*M은 dividend polynomial, G는 divisor polynomial, R은 remainder*/
+    char Dividend[100], Divisor[50], Remainder[100];/*Dividend은 dividend polynomial, G는 divisor polynomial, R은 remainder*/
 	
     //파일에서 0과 1로 구성된 m-bit 메시지를 포함하는 아스키 텍스트의 첫번째 라인을 읽어온다
     while((c = getchar()) != '\n')
 	{
 		//putchar(c);
-		M[m] = c;        //store the message in M
-		m++;             //the number of bits in M
+		Dividend[m] = c;        
+		m++;             
     }
 
     //n-bit polyinomial을 표현하는 두번째 파일을 파일에서 읽어온다
@@ -18,8 +18,8 @@ int main(int argc, char* argv[])
     while((c = getchar()) != '\n')
 	{
 		putchar(c);
-		G[n] = c;        //store the divisor polynomial in G
-		M[m + n] = '0';  //append 0 bits after M[m - 1]
+		Divisor[n] = c;        //store the divisor polynomial in G
+		Dividend[m + n] = '0';  //append 0 bits after M[m - 1]
 		n++;             //the number of bits in G
     }
     printf("\n");
@@ -27,30 +27,30 @@ int main(int argc, char* argv[])
     //초기에는 remainder와 dividend를 동일하게 만든다
 	for (i = 0; i < m + n - 1; i++)
 	{
-		R[i] = M[i];
+		Remainder[i] = Dividend[i];
     }
     
     // remainder R을 구하기 위해서 (m-1)번 계산을 실시
 	for (i = 0; i < m - 1; i++)
 	{
-		if (R[i] == '1')
+		if (Remainder[i] == '1')
 		{
 			for (j = i; j < n + i; j++)
 			{
-				if (R[j] == G[j - i]) 
-					R[j] = '0';
+				if (Remainder[j] == Divisor[j - i]) 
+					Remainder[j] = '0';
 				else
-					R[j] = '1';
+					Remainder[j] = '1';
 			}
 		}
 		else
 		{
 			for (j = i; j < n + i; j++)
 			{
-				if (R[j] == '0')
-					R[j] = '0';
+				if (Remainder[j] == '0')
+					Remainder[j] = '0';
 				else 
-					R[j] = '1';
+					Remainder[j] = '1';
 			}
 		}
     }
@@ -59,11 +59,11 @@ int main(int argc, char* argv[])
 	printf("\nThe message to be transmitted is: ");
     for (i = 0; i < m + n - 1; i++)
 	{
-		if (R[i] == M[i])
-			M[i] = '0';
+		if (Remainder[i] == Dividend[i])
+			Dividend[i] = '0';
 		else 
-			M[i] = '1';
-		putchar(M[i]);
+			Dividend[i] = '1';
+		putchar(Dividend[i]);
     }
     printf("\n");
 
