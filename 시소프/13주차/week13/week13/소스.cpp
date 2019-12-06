@@ -124,7 +124,7 @@ int main(int argc, char* argv[])
 	
 		for (int i = 0; i < all_length; i++)
 		{
-			char* instruction = SubString(all_instruction, 0, 5);
+			char* instruction = SubString(all_instruction, 0, 1);
 			
 		/*	for (int j = 0; j < location_count; j++)
 			{	
@@ -150,9 +150,9 @@ int main(int argc, char* argv[])
 		*/
 
 			printf("%d %s\n", address, instruction);
-			all_instruction = SubString(all_instruction, 6, all_length);
+			all_instruction = SubString(all_instruction, 2, all_length);
 			all_length = strlen(all_instruction);
-			address += 6;
+			address += 1;
 		}
 	
 	
