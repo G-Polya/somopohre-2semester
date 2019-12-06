@@ -46,8 +46,7 @@ int main(int argc, char* argv[])
 		{
 			char* location = SubString(buffer, 1, 6); // relocation이 일어나야하는 위치
 			locations[location_count] = strtol(location,NULL,16);
-			printf("%x\n", locations[location_count]);
-
+			
 			location_count++;
 		}
 		
@@ -66,7 +65,7 @@ int main(int argc, char* argv[])
 	get_capacity(buffer);
 
 	int start_addr = (int)rand() % random_range;
-	start_addr = 2260;
+	
 	printf("memory start address : %d\n", start_addr);
 	int end_addr = start_addr + count - 1;
 	printf("memory last address : %d\n", end_addr);
@@ -76,8 +75,7 @@ int main(int argc, char* argv[])
 	// address  instruction
 	int address = start_addr; // 초기화
 
-	FILE* after_relocation = fopen("after.txt", "w");
-
+	
 	int all_length = 0;	
 
 	char** lines = (char**)malloc(sizeof(char*) * T_count);
@@ -96,7 +94,7 @@ int main(int argc, char* argv[])
 	
 	all_length -= 1;
 
-	printf("%d\n", all_length);
+	
 	char* all_instruction = (char*)malloc(sizeof(char));
 	all_instruction = SubString(all_instruction, 5, all_length);
 	all_instruction[0] = 0;
@@ -105,46 +103,59 @@ int main(int argc, char* argv[])
 		strcat(all_instruction, temps[i]);
 	}
 
-	
-	printf("%s %c\n\n", all_instruction,all_instruction[all_length]);
-	
+	char* temp_all = SubString(all_instruction, 0, all_length);
 	
 	
+	FILE* after_relocation = fopen("after.txt", "w");
 	
-		for (int i = 0; i < all_length; i++)
-		{
-			int instruction = strtol(SubString(all_instruction,0,1),NULL,16); 
+	
+	
+	for (int i = 0; i < all_length; i++)
+	{
+		int instruction = strtol(SubString(temp_all,0,1),NULL,16); 
 			
-			for (int j = 0; j < location_count; j++)
-			{	
+		for (int j = 0; j < location_count; j++)
+		{	
 				
-				if (i - 1 == locations[j])
-				{
-					instruction += 9;
-				}
-				else if (i - 2 == locations[j])
-				{
-					
-						
-						instruction -= 44;
-				}
+			if (i - 1 == locations[j])
+			{
+				instruction += 9;
 			}
+			else if (i - 2 == locations[j])
+			{
+				instruction -= 44;
+			}
+		}
 		
 
-			printf("%d %02X\n", address, instruction);
-			all_instruction = SubString(all_instruction, 2, all_length);
-			all_length = strlen(all_instruction);
-			address += 1;
-		}
+		fprintf(after_relocation,"%d %02X\n", address, instruction);
+		temp_all = SubString(temp_all, 2, all_length);
+		all_length = strlen(temp_all);
+		address += 1;
+	}
 	
+	int relocation_addr[3];
+	for(int i=0;i<3;i++)
+		relocation_addr[i] = strtol(SubString(all_instruction, locations[i] * 2, locations[i] * 2 + 5), NULL, 16);
 	
-	/*int location_temp = 1 + 6 + 2 + locations[0];
-	fseek(objfile, 0, SEEK_SET);
-	fgets(buffer, sizeof(buffer), objfile);
-	fseek(objfile, location_temp, SEEK_CUR);
-	char* temp_ = fgets(buffer, sizeof(buffer), objfile);
-	*/
+
+	printf("before modification:\n");
+	printf("Address  instruction\n");
+	for(int i= 0 ;i<3;i++)
+		printf("%d %10X\n", address + locations[i], relocation_addr[i]);
+
+	printf("\n");
+	printf("after modification:\n");
+	printf("Address  instruction\n");
+	for (int i = 0; i < 3; i++)
+		printf("%d %10X\n", address + locations[i], relocation_addr[i] + start_addr);
+
+	
+
+	
 	free(lines);
 	free(temps);
+	fclose(after_relocation);
+	fclose(objfile);
 	return 0;
 }
