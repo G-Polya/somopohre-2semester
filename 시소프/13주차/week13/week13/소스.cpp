@@ -93,7 +93,7 @@ int main(int argc, char* argv[])
 	}
 	
 	all_length -= 1;
-
+	//
 	
 	char* all_instruction = (char*)malloc(sizeof(char));
 	all_instruction = SubString(all_instruction, 5, all_length);
