@@ -45,8 +45,8 @@ int main(int argc, char* argv[])
 		else if (buffer[0] == 'M')
 		{
 			char* location = SubString(buffer, 1, 6); // relocation이 일어나야하는 위치
-			locations[location_count] = atoi(location);
-			printf("%d\n", locations[location_count]);
+			locations[location_count] = strtol(location,NULL,16);
+			printf("%x\n", locations[location_count]);
 
 			location_count++;
 		}
@@ -78,21 +78,45 @@ int main(int argc, char* argv[])
 
 	FILE* after_relocation = fopen("after.txt", "w");
 
-	char* all_instruction = (char*)malloc(sizeof(char));
-	int all_length = strlen(all_instruction) - 1;
-	all_instruction = SubString(all_instruction, 5, all_length);
+	int all_length = 0;
 
 	char** lines = (char**)malloc(sizeof(char*) * T_count);
-
+	char** temps = (char**)malloc(sizeof(char*) * T_count);
+	int* temps_length = (int*)malloc(sizeof(int) * T_count);
 	for (int i = 0; i < T_count; i++)
 	{
 		lines[i] = fgets(buffer, sizeof(buffer), objfile);
 		int line_length = strlen(lines[i]) - 2;
 		char* temp = SubString(lines[i], 9, line_length);
-		strcat(all_instruction, temp);
+		temps_length[i] = strlen(temp);
+		temps[i] = temp;
+		all_length += temps_length[i];
+
+	}
+	
+	all_length -= 1;
+
+	printf("%d\n", all_length);
+	char* all_instruction = (char*)malloc(sizeof(char));
+	all_instruction = SubString(all_instruction, 5, all_length);
+	all_instruction[0] = 0;
+	for (int i = 0; i < T_count; i++)
+	{
+		strcat(all_instruction, temps[i]);
 	}
 
-	printf("%s\n", all_instruction);
+	printf("%s %c\n\n", all_instruction,all_instruction[all_length]);
+	
+	
+	for (int i = 0; i < all_length; i*=2)
+	{
+		char* instruction = SubString(all_instruction, 0, 1);
+
+		printf("%d %s\n", address, instruction);
+		all_instruction = SubString(all_instruction, 2, all_length);
+		all_length = strlen(all_instruction) - 1;
+		address += 1;
+	}
 	
 	/*int location_temp = 1 + 6 + 2 + locations[0];
 	fseek(objfile, 0, SEEK_SET);
@@ -100,6 +124,7 @@ int main(int argc, char* argv[])
 	fseek(objfile, location_temp, SEEK_CUR);
 	char* temp_ = fgets(buffer, sizeof(buffer), objfile);
 	*/
-	
+	free(lines);
+	free(temps);
 	return 0;
 }
