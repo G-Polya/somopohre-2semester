@@ -27,7 +27,8 @@ int main(int argc, char* argv[])
 	char buffer[255];
 	int len = 0;
 	int count = 0;
-
+	int location_count = 0;
+	int* locations = (int*)malloc(sizeof(int) * location_count);
 	//FILE* objfile = fopen(argv[1], "r");
 	FILE* objfile = fopen("source.obj", "r");
 	
@@ -39,6 +40,14 @@ int main(int argc, char* argv[])
 		{
 			char* line_length = SubString(buffer, 7, 8);
 			count += strtol(line_length, NULL, 16);
+		}
+		else if (buffer[0] == 'M')
+		{
+			char* location = SubString(buffer, 1, 6); // relocation이 일어나야하는 위치
+			locations[location_count] = atoi(location);
+			printf("%d\n", locations[location_count]);
+
+			location_count++;
 		}
 		
 		len = strlen(buffer);
@@ -88,31 +97,8 @@ int main(int argc, char* argv[])
 		address += 1;
 	}
 	
-	printf("---------two line--------\n");
-	char* two_line = fgets(buffer, sizeof(buffer), objfile);
-	printf("%s", two_line);
-	int two_line_length = strlen(two_line) - 2;
-	temp = SubString(two_line, 9, two_line_length);
-	temp_length = strlen(temp) - 1;
-	printf("%s\n\n", temp);
-
-	for (int i = 0; i < temp_length; i *= 2)
-	{
-		printf("%d %s\n", address, SubString(temp, 0, 1));
-
-		temp = SubString(temp, 2, temp_length);
-		temp_length = strlen(temp) - 1;
-		address += 1;
-	}
+	
 
 
 	return 0;
-}
-
-void address_and_instruction(int address, char* input)
-{
-	int temp_length = strlen(input) - 1;
-	char* temp = SubString(input, 2, temp_length);
-
-	printf("%d %s\n", address, SubString(input, 0, 1));
 }
