@@ -14,7 +14,6 @@ char* SubString(char* input, int begin, int end)
 	substring[end - begin + 1] = 0;
 	return substring;
 }
-void address_and_instruction(int address, char* input);
 
 void get_capacity(char* input)
 {
@@ -32,7 +31,7 @@ int main(int argc, char* argv[])
 	//FILE* objfile = fopen(argv[1], "r");
 	FILE* objfile = fopen("source.obj", "r");
 	
-	while (1)
+	while (!feof(objfile))
 	{
 
 		fgets(buffer, sizeof(buffer), objfile);
@@ -69,9 +68,7 @@ int main(int argc, char* argv[])
 	int end_addr = start_addr + count - 1;
 	printf("memory last address : %d\n", end_addr);
 
-	//printf("%s", fgets(buffer, sizeof(buffer), objfile));
-	//printf("%s", fgets(buffer, sizeof(buffer), objfile));
-
+	
 	printf("%d\n", count);
 
 	// address  instruction
@@ -98,7 +95,12 @@ int main(int argc, char* argv[])
 	}
 	
 	
-
-
+	/*int location_temp = 1 + 6 + 2 + locations[0];
+	fseek(objfile, 0, SEEK_SET);
+	fgets(buffer, sizeof(buffer), objfile);
+	fseek(objfile, location_temp, SEEK_CUR);
+	char* temp_ = fgets(buffer, sizeof(buffer), objfile);
+	*/
+	
 	return 0;
 }
