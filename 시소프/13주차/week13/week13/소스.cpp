@@ -15,6 +15,8 @@ char* SubString(char* input, int begin, int end)
 	return substring;
 }
 
+
+
 void get_capacity(char* input)
 {
 	printf("memory storage capacity: %s", SubString(input, 15, 19));
@@ -60,7 +62,15 @@ int main(int argc, char* argv[])
 	printf("memory last address : %d\n", end_addr);
 
 	printf("%s\n", fgets(buffer, sizeof(buffer), objfile));
+	printf("%s\n", fgets(buffer, sizeof(buffer), objfile));
+
 	printf("%d\n", count);
+
+	// address  instruction
+	int address = start_addr; // √ ±‚»≠
+
+
+
 
 
 	return 0;
