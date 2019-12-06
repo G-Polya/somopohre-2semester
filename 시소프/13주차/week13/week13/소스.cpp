@@ -78,7 +78,7 @@ int main(int argc, char* argv[])
 
 	FILE* after_relocation = fopen("after.txt", "w");
 
-	int all_length = 0;
+	int all_length = 0;	
 
 	char** lines = (char**)malloc(sizeof(char*) * T_count);
 	char** temps = (char**)malloc(sizeof(char*) * T_count);
@@ -105,18 +105,56 @@ int main(int argc, char* argv[])
 		strcat(all_instruction, temps[i]);
 	}
 
+	
 	printf("%s %c\n\n", all_instruction,all_instruction[all_length]);
 	
 	
-	for (int i = 0; i < all_length; i*=2)
+	/*for (int i = 0; i < all_length; i*=6)
 	{
-		char* instruction = SubString(all_instruction, 0, 1);
+		char* instruction = SubString(all_instruction, 0, 5);
 
+		if (i == locations[i])
+			_itoa(strtol(SubString(all_instruction, 0, 6), NULL, 16) + start_addr,instruction,5);
 		printf("%d %s\n", address, instruction);
-		all_instruction = SubString(all_instruction, 2, all_length);
-		all_length = strlen(all_instruction) - 1;
-		address += 1;
-	}
+		all_instruction = SubString(all_instruction, 6, all_length);
+		all_length = strlen(all_instruction) ;
+		address += 6;
+	}*/
+
+	
+		for (int i = 0; i < all_length; i++)
+		{
+			char* instruction = SubString(all_instruction, 0, 5);
+			
+		/*	for (int j = 0; j < location_count; j++)
+			{	
+				if (i == locations[j])
+				{
+					
+
+					printf("%d", i);
+					
+				}
+				else if (i - 1 == locations[j])
+				{
+					
+					printf("%d", i);
+				}
+				else if (i - 2 == locations[j])
+				{
+					;
+
+					printf("%d", i);
+				}
+			}
+		*/
+
+			printf("%d %s\n", address, instruction);
+			all_instruction = SubString(all_instruction, 6, all_length);
+			all_length = strlen(all_instruction);
+			address += 6;
+		}
+	
 	
 	/*int location_temp = 1 + 6 + 2 + locations[0];
 	fseek(objfile, 0, SEEK_SET);
