@@ -65,6 +65,7 @@ int main(int argc, char* argv[])
 	get_capacity(buffer);
 
 	int start_addr = (int)rand() % random_range;
+	//start_addr = 2260;
 	
 	printf("memory start address : %d\n", start_addr);
 	int end_addr = start_addr + count - 1;
@@ -139,6 +140,7 @@ int main(int argc, char* argv[])
 		relocation_addr[i] = strtol(SubString(all_instruction, locations[i] * 2, locations[i] * 2 + 5), NULL, 16);
 	
 
+	address = start_addr;
 	printf("before modification:\n");
 	printf("Address  instruction\n");
 	for(int i= 0 ;i<3;i++)
