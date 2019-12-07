@@ -29,8 +29,8 @@ int main(int argc, char* argv[])
 	int location_count = 0;
 	int T_count = 0;
 	int* locations = (int*)malloc(sizeof(int) * location_count);
-	//FILE* objfile = fopen(argv[1], "r");
-	FILE* objfile = fopen("source.obj", "r");
+	FILE* objfile = fopen(argv[1], "r");
+	//FILE* objfile = fopen("source.obj", "r");
 	
 	while (1)
 	{
