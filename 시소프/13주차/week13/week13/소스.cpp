@@ -7,6 +7,42 @@
 
 #define  random_range (32758);
 
+
+
+int get_Upcasting(long x)
+{
+	//x가 16진수로 1자리면 +16(16진수 10)	후 제일 첫번째 자리
+	//x가 16진수로 2자리(10~99) +256(16진수 100)
+	//x가 16진수로 3자리(100~999) +4096(16진수 1000)
+	int upcasting_x = 0;
+	
+	
+	if (x < 16)
+		upcasting_x = x / 16;
+	else if (x >= 16 && x < 256) 
+		upcasting_x = (x + 16) / 16;
+	else if (x >= 256 && x < 4096)
+		upcasting_x = (x + 256) / 256;
+	else if (x >= 4096 && x < 65536)
+		upcasting_x = (x + 4096) / 4096;
+
+	return upcasting_x;
+}
+
+int get_remainer(int x)
+{
+	int remainder;
+	
+	if (x >= 16 && x < 256)
+		remainder = get_Upcasting(x) * 256 - x;
+	else if (x >= 256 && x < 4096)
+		remainder = get_Upcasting(x) * 4096 - x;
+	else if (x >= 4096 && x < 65536)
+		remainder = get_Upcasting(x) * 65536 - x;
+
+	return remainder
+}
+
 char* SubString(char* input, int begin, int end)
 {
 	char* substring = (char*)malloc(sizeof(char) * (end - begin + 2));
@@ -15,10 +51,6 @@ char* SubString(char* input, int begin, int end)
 	return substring;
 }
 
-//void get_capacity(char* input)
-//{
-//	
-//}
 
 int main(int argc, char* argv[])
 {
@@ -67,8 +99,8 @@ int main(int argc, char* argv[])
 
 	printf("memory storage capacity: %X\n", strtol(SubString(buffer, 15, 19),NULL,16));
 
-	int start_addr = (int)rand() % random_range;
-	//start_addr = 2260;
+	long start_addr = (int)rand() % random_range;
+	start_addr =15;
 	
 	printf("memory start address : %d\n", start_addr);
 	int end_addr = start_addr + count - 1;
@@ -122,14 +154,20 @@ int main(int argc, char* argv[])
 			
 		for (int j = 0; j < location_count; j++)
 		{	
-				
-			if (i - 1 == locations[j])
+			
+			if (i == locations[i])
 			{
-				instruction += 9;
+				;
+			}
+				
+			else if (i - 1 == locations[j])
+			{
+				instruction += get_Upcasting(start_addr);		//이 때 9는 16진수 2260> 8D4 > 900(2304) - 2C(44) // 2 
+				
 			}
 			else if (i - 2 == locations[j])
 			{
-				instruction -= 44;
+				instruction -= 44;		//이 때 44는 10진수
 			}
 		}
 		
