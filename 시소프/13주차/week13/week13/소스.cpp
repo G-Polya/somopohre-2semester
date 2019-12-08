@@ -32,7 +32,7 @@ int main(int argc, char* argv[])
 	//FILE* objfile = fopen(argv[1], "r");
 	FILE* objfile = fopen("source.obj", "r");
 	
-	while (1)
+	while (!feof(objfile))
 	{
 
 		fgets(buffer, sizeof(buffer), objfile);
