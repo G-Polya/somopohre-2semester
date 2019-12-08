@@ -15,17 +15,18 @@ char* SubString(char* input, int begin, int end)
 	return substring;
 }
 
-void get_capacity(char* input)
-{
-	printf("memory storage capacity: %s", SubString(input, 15, 19));
-}
+//void get_capacity(char* input)
+//{
+//	
+//}
 
 int main(int argc, char* argv[])
 {
 	srand(time(NULL));
+
 	char buffer[255];	//라인 하나를 읽어서 저장할 buffer
 	int len = 0;
-	int count = 0;
+	int count = 0;		//목적코드의 총 길이
 	int location_count = 0;
 	int T_count = 0;	//시작이 T인 문자열
 	int* locations = (int*)malloc(sizeof(int) * location_count);
@@ -64,7 +65,7 @@ int main(int argc, char* argv[])
 
 	printf("---------------------Result-------------------\n");
 
-	get_capacity(buffer);
+	printf("memory storage capacity: %X\n", strtol(SubString(buffer, 15, 19),NULL,16));
 
 	int start_addr = (int)rand() % random_range;
 	//start_addr = 2260;
