@@ -18,26 +18,23 @@ int get_Upcasting(long x)
 	
 	if (x < 16)
 		return x / 16;
-	else if (x >= 16 && x < 256)	//10~99 
-		return (x + 16) / 16;
-	else if (x >= 256 && x < 4096)
-		return (x + 256) / 256;
-	else if (x >= 4096 && x < 65536)
-		return (x + 4096) / 4096;
+	else if (x < 256)	//10~99 
+		return x  / 16;
+	else if ( x < 4096)
+		return x / 256;
+	else if (x < 65536)
+		return x  / 4096;
 
 }
 
 long get_remainer(int x)
 {
-	
-	
 	if (x >= 16 && x < 256)
 		return get_Upcasting(x) * 16 - x;
 	else if (x >= 256 && x < 4096)
 		return get_Upcasting(x) * 256 - x;
 	else if (x >= 4096 && x < 65536)
 		return get_Upcasting(x) * 4096 - x;
-
 	
 }
 
@@ -98,8 +95,8 @@ int main(int argc, char* argv[])
 	printf("memory storage capacity: %X\n", strtol(SubString(buffer, 15, 19),NULL,16));
 
 	long start_addr = (int)rand() % random_range;
-	start_addr =17;
-	
+	start_addr = 61440;
+	//start_addr = 53248;
 	printf("memory start address : %d\n", start_addr);
 	int end_addr = start_addr + count - 1;
 	printf("memory last address : %d\n", end_addr);
@@ -145,36 +142,148 @@ int main(int argc, char* argv[])
 	FILE* after_relocation = fopen("after.txt", "w");
 
 	
-	
-	for (int i = 0; i < all_length; i++)
+	if (start_addr < 256)
 	{
-		int instruction = strtol(SubString(temp_all,0,1),NULL,16); 
-			
-		for (int j = 0; j < location_count; j++)
-		{	
-			
-			if (i == locations[i])
-			{
-				;
-			}
-				
-			else if (i - 1 == locations[j])
-			{
-				instruction += get_Upcasting(start_addr);		//이 때 9는 16진수 2260> 8D4 > 900(2304) - 2C(44) // 2 
-				printf("%d\n", get_Upcasting(start_addr));
-			}
-			else if (i - 2 == locations[j])
-			{
-				instruction -= get_remainer(start_addr);
-				printf("%d\n", get_remainer(start_addr)); //이 때 44는 10진수
-			}
-		}
-		
+		for (int i = 0; i < all_length; i++)
+		{
+			int instruction = strtol(SubString(temp_all, 0, 1), NULL, 16);
 
-		fprintf(after_relocation,"%d %02X\n", address, instruction);
-		temp_all = SubString(temp_all, 2, all_length);
-		all_length = strlen(temp_all);
-		address += 1;
+			for (int j = 0; j < location_count; j++)
+			{
+				
+			
+				if (i - 2 == locations[j])
+				{
+					instruction += start_addr;
+					printf("%d\n", get_remainer(start_addr)); //이 때 44는 10진수
+				}
+			}
+
+
+			fprintf(after_relocation, "%d %02X\n", address, instruction);
+			temp_all = SubString(temp_all, 2, all_length);
+			all_length = strlen(temp_all);
+			address += 1;
+		}
+	}
+	else if (start_addr < 4096)
+	{
+		for (int i = 0; i < all_length; i++)
+		{
+			int instruction = strtol(SubString(temp_all, 0, 1), NULL, 16);
+
+			for (int j = 0; j < location_count; j++)
+			{
+
+				if (i == locations[j])
+				{
+					;
+				}
+
+				else if (i - 1 == locations[j])
+				{
+					instruction += get_Upcasting(start_addr);
+					
+				}
+				else if (i - 2 == locations[j])
+				{
+					instruction += start_addr - get_Upcasting(start_addr) * 256;	
+				}
+			}
+
+			if (instruction + start_addr > 4096)
+			{
+				for (int j = 0; j < location_count; j++)
+				{
+
+					if (i == locations[j])
+					{
+						//instruction += get_Upcasting(start_addr);
+						//printf("%d\n", get_Upcasting(start_addr));
+					}
+
+					else if (i - 1 == locations[j])
+					{
+					
+						 instruction += 1;
+						
+
+					}
+					else if (i - 2 == locations[j])
+					{
+						
+						instruction -= 16 * 16 ;
+						
+						
+					}
+				}
+			}
+
+			fprintf(after_relocation, "%d %05X\n", address, instruction);
+			temp_all = SubString(temp_all, 2, all_length);
+			all_length = strlen(temp_all);
+			address += 1;
+		}
+	}
+	else if (start_addr < 65536)
+	{
+		for (int i = 0; i < all_length; i++)
+		{
+			int instruction = strtol(SubString(temp_all, 0, 1), NULL, 16);
+
+			for (int j = 0; j < location_count; j++)
+			{
+
+				if (i == locations[j])
+				{
+					//instruction += ;
+					instruction += get_Upcasting(start_addr);
+				}
+
+				else if (i - 1 == locations[j])
+				{
+					instruction += get_Upcasting(start_addr) * 16 ;
+					
+					if (instruction == 16 * 16 )
+					{
+						instruction += get_Upcasting(start_addr) * 16 - 16*16;
+					}
+				}
+				else if (i - 2 == locations[j])
+				{
+					instruction += start_addr - get_Upcasting(start_addr) * 16* 16 * 16 ;
+				}
+			}
+
+			
+			if (instruction + start_addr > 65535)
+			{
+				for (int j = 0; j < location_count; j++)
+				{
+
+					if (i == locations[j])
+					{
+						instruction += 1;
+					}
+
+					else if (i - 1 == locations[j])
+					{
+
+						instruction += 16 - 16* 16;
+
+					}
+					else if (i - 2 == locations[j])
+					{
+						instruction -= 16*16*16 ;
+					}
+				}
+			}
+
+			fprintf(after_relocation, "%d %05X\n", address, instruction);
+			temp_all = SubString(temp_all, 2, all_length);
+			all_length = strlen(temp_all);
+			address += 1;
+		}
 	}
 	
 	int relocation_addr[3];
