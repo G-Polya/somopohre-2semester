@@ -23,11 +23,11 @@ void get_capacity(char* input)
 int main(int argc, char* argv[])
 {
 	srand(time(NULL));
-	char buffer[255];
+	char buffer[255];	//라인 하나를 읽어서 저장할 buffer
 	int len = 0;
 	int count = 0;
 	int location_count = 0;
-	int T_count = 0;
+	int T_count = 0;	//시작이 T인 문자열
 	int* locations = (int*)malloc(sizeof(int) * location_count);
 	//FILE* objfile = fopen(argv[1], "r");
 	FILE* objfile = fopen("source.obj", "r");
@@ -62,6 +62,8 @@ int main(int argc, char* argv[])
 
 	fgets(buffer, sizeof(buffer), objfile);
 
+	printf("---------------------Result-------------------\n");
+
 	get_capacity(buffer);
 
 	int start_addr = (int)rand() % random_range;
@@ -94,9 +96,9 @@ int main(int argc, char* argv[])
 	}
 	
 	all_length -= 1;
-	//
 	
-	char* all_instruction = (char*)malloc(sizeof(char));
+	
+	char* all_instruction = (char*)malloc(sizeof(char));	//T로 시작하는 목적코드들에서 시작주소와 길이를 제외한 "실질적인 코드"부분을 하나의 문자열로 합침. 그 하나의 문자열 
 	all_instruction = SubString(all_instruction, 5, all_length);
 	all_instruction[0] = 0;
 	for (int i = 0; i < T_count; i++)
@@ -104,11 +106,13 @@ int main(int argc, char* argv[])
 		strcat(all_instruction, temps[i]);
 	}
 
+	
 	char* temp_all = SubString(all_instruction, 0, all_length);
 	
 	
+	//FILE* after_relocation = fopen(argv[2], "w");
 	FILE* after_relocation = fopen("after.txt", "w");
-	
+
 	
 	
 	for (int i = 0; i < all_length; i++)
