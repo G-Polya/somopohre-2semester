@@ -117,7 +117,7 @@ int main(int argc, char* argv[])
 	char relocation_addr_string[3][7];
 	
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < location_count; i++)
 	{
 		relocation_addr_int[i] = strtol(SubString(all_instruction, locations[i] * 2, locations[i] * 2 + 5), NULL, 16) + start_addr;
 
@@ -157,17 +157,16 @@ int main(int argc, char* argv[])
 	}
 
 
-	address = start_addr;
 	printf("before modification:\n");
 	printf("Address  instruction\n");
-	for (int i = 0; i < 3; i++)
-		printf("%d %10X\n", address + locations[i], relocation_addr_int[i] - start_addr);
+	for (int i = 0; i < location_count; i++)
+		printf("%d %6X\n", start_addr + locations[i], relocation_addr_int[i] - start_addr);
 
 	printf("\n");
 	printf("after modification:\n");
 	printf("Address  instruction\n");
-	for (int i = 0; i < 3; i++)
-		printf("%d %10X\n", address + locations[i], relocation_addr_int[i]);
+	for (int i = 0; i < location_count; i++)
+		printf("%d %6X\n", start_addr + locations[i], relocation_addr_int[i]);
 
 
 	//free(relocation_addr_string);
