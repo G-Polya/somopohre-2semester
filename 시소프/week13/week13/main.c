@@ -29,8 +29,9 @@ int main(int argc, char* argv[])
 	int location_count = 0;
 	int T_count = 0;	//시작이 T인 문자열
 	int* locations = (int*)malloc(sizeof(int) * location_count);
-	//FILE* objfile = fopen(argv[1], "r");
-	FILE* objfile = fopen("source.obj", "r");
+	
+	FILE* objfile = fopen(argv[1], "r");
+	//FILE* objfile = fopen("source.obj", "r");
 
 	while (!feof(objfile))
 	{
@@ -107,8 +108,8 @@ int main(int argc, char* argv[])
 
 
 	
-	//FILE* after_relocation = fopen(argv[2], "w");
-	FILE* after_relocation = fopen("after.txt", "w");
+	FILE* after_relocation = fopen(argv[2], "w");
+	//FILE* after_relocation = fopen("after.txt", "w");
 
 	
 	//int relocation_addr_int[3];
@@ -120,8 +121,7 @@ int main(int argc, char* argv[])
 	{
 		relocation_addr_int[i] = strtol(SubString(all_instruction, locations[i] * 2, locations[i] * 2 + 5), NULL, 16) + start_addr;
 
-		//sprintf(relocation_addr_string[i], "%X", relocation_addr_int[i]);	 이걸로 해도 됨
-		_itoa(relocation_addr_int[i], relocation_addr_string, 16);
+		sprintf(relocation_addr_string[i], "%X", relocation_addr_int[i]);	 
 		relocation_addr_string[i][6] = '\0';
 
 	}
