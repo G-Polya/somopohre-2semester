@@ -23,11 +23,11 @@ int main(int argc, char* argv[])
 {
 	srand(time(NULL));
 
-	char buffer[255];	//¶óÀÎ ÇÏ³ª¸¦ ÀĞ¾î¼­ ÀúÀåÇÒ buffer
+	char buffer[255];	//ë¼ì¸ í•˜ë‚˜ë¥¼ ì½ì–´ì„œ ì €ì¥í•  buffer
 	int len = 0;
-	int count = 0;		//¸ñÀûÄÚµåÀÇ ÃÑ ±æÀÌ
+	int count = 0;		//ëª©ì ì½”ë“œì˜ ì´ ê¸¸ì´
 	int location_count = 0;
-	int T_count = 0;	//½ÃÀÛÀÌ TÀÎ ¹®ÀÚ¿­
+	int T_count = 0;	//ì‹œì‘ì´ Tì¸ ë¬¸ìì—´
 	int* locations = (int*)malloc(sizeof(int) * location_count);
 	
 	FILE* objfile = fopen(argv[1], "r");
@@ -45,7 +45,7 @@ int main(int argc, char* argv[])
 		}
 		else if (buffer[0] == 'M')
 		{
-			char* location = SubString(buffer, 1, 6); // relocationÀÌ ÀÏ¾î³ª¾ßÇÏ´Â À§Ä¡
+			char* location = SubString(buffer, 1, 6); // relocationì´ ì¼ì–´ë‚˜ì•¼í•˜ëŠ” ìœ„ì¹˜
 			locations[location_count] = strtol(location, NULL, 16);
 
 			location_count++;
@@ -77,7 +77,7 @@ int main(int argc, char* argv[])
 
 
 	// address  instruction
-	int address = start_addr; // ÃÊ±âÈ­
+	int address = start_addr; // ì´ˆê¸°í™”
 
 
 	int all_length = 0;
@@ -98,7 +98,7 @@ int main(int argc, char* argv[])
 
 
 
-	char* all_instruction = (char*)malloc(sizeof(char));	//T·Î ½ÃÀÛÇÏ´Â ¸ñÀûÄÚµåµé¿¡¼­ ½ÃÀÛÁÖ¼Ò¿Í ±æÀÌ¸¦ Á¦¿ÜÇÑ "½ÇÁúÀûÀÎ ÄÚµå"ºÎºĞÀ» ÇÏ³ªÀÇ ¹®ÀÚ¿­·Î ÇÕÄ§. ±× ÇÏ³ªÀÇ ¹®ÀÚ¿­ 
+	char* all_instruction = (char*)malloc(sizeof(char));	//Të¡œ ì‹œì‘í•˜ëŠ” ëª©ì ì½”ë“œë“¤ì—ì„œ ì‹œì‘ì£¼ì†Œì™€ ê¸¸ì´ë¥¼ ì œì™¸í•œ "ì‹¤ì§ˆì ì¸ ì½”ë“œ"ë¶€ë¶„ì„ í•˜ë‚˜ì˜ ë¬¸ìì—´ë¡œ í•©ì¹¨. ê·¸ í•˜ë‚˜ì˜ ë¬¸ìì—´ 
 	all_instruction = SubString(all_instruction, 5, all_length);
 	all_instruction[0] = 0;
 	for (int i = 0; i < T_count; i++)
@@ -169,7 +169,7 @@ int main(int argc, char* argv[])
 		printf("%d %6X\n", start_addr + locations[i], relocation_addr_int[i]);
 
 
-	//free(relocation_addr_string);
+	free(relocation_addr_string);
 	free(relocation_addr_int);
 	free(lines);
 	free(temps);
