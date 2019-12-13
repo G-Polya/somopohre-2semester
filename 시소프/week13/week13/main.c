@@ -114,8 +114,13 @@ int main(int argc, char* argv[])
 	
 	//int relocation_addr_int[3];
 	int* relocation_addr_int = (int*)malloc(sizeof(int) * location_count);
-	char relocation_addr_string[3][7];
 	
+	//char relocation_addr_string[3][7];
+	char** relocation_addr_string = (char**)malloc(sizeof(char*) * location_count);
+	for(int i = 0; i<location_count;i++)
+	{
+		relocation_addr_string[i] = (char*)malloc(sizeof(char)*7);
+	}
 
 	for (int i = 0; i < location_count; i++)
 	{
