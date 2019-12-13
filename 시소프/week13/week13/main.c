@@ -32,6 +32,8 @@ int main(int argc, char* argv[])
 	
 	FILE* objfile = fopen(argv[1], "r");
 	//FILE* objfile = fopen("source.obj", "r");
+	//FILE* objfile = fopen("test_objfile.obj", "r");
+
 
 	while (!feof(objfile))
 	{
@@ -110,7 +112,6 @@ int main(int argc, char* argv[])
 	
 	FILE* after_relocation = fopen(argv[2], "w");
 	//FILE* after_relocation = fopen("after.txt", "w");
-
 	
 	//int relocation_addr_int[3];
 	int* relocation_addr_int = (int*)malloc(sizeof(int) * location_count);
@@ -174,6 +175,7 @@ int main(int argc, char* argv[])
 		printf("%d %6X\n", start_addr + locations[i], relocation_addr_int[i]);
 
 
+	free(all_instruction);
 	free(relocation_addr_string);
 	free(relocation_addr_int);
 	free(lines);
