@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
     close(fd);
 
        
-	>
+	
     fd = open(argv[2],O_CREAT|O_RDWR,0600);
     write(fd,buffer,100);
 
