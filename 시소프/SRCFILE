@@ -1,0 +1,15 @@
+ ldx     zero
+
+         word    1
+zero     word    0
+max      resw    1
+three    word    3
+cou ldx     zero
+
+         word    1
+zero     word    0
+max      resw    1
+three    word    3
+count    word    15
+index    resw    1
+last     end     first
